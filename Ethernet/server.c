@@ -35,6 +35,12 @@ int main()
         servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
         servaddr.sin_port = htons(SERVER_PORT);
         ret = bind(msock, (struct sockaddr*)&servaddr, sizeof(struct sockaddr_in));
+        memset(&servaddr, 0, sizeof(servaddr));
+        servaddr.sin_family = AF_INET;
+        servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+        servaddr.sin_port = htons(SERVER_PORT);
+        ret = bind(msock, (struct sockaddr*)&servaddr, sizeof(struct sockaddr_in));
+        if(ret < 0){
         if(ret < 0){
                 printf("Server Bind Port: %d Failed!\n", SERVER_PORT);
                 exit(-1);
