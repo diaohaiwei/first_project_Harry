@@ -35,6 +35,12 @@ int main(){
                 printf("connet Failed!\n");
                 exit(-1);
         }
+        memset(&servaddr, 0, sizeof(servaddr));
+        servaddr.sin_family = AF_INET;
+        servaddr.sin_port = htons(SERVERPORT);
+        inet_aton(SERVERIP, &servaddr.sin_addr);
+        ret = connect(tsock, (struct sockaddr*)&servaddr, sizeof(struct sockaddr));
+        if(ret < 0){
         num = send(tsock, buffer,strlen(buffer), 0);
         if(num != strlen(buffer)){
         printf("Send Data Failed!\n");
